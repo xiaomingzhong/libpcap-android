@@ -59,7 +59,7 @@ exit_error()
     if [ $# -ne 1 ]
     then
         echo Toolchain architecture not specified
-        exit 1
+        exit_error
     fi
 
     mkdir libpcapbuild
@@ -106,7 +106,7 @@ exit_error()
             ;;
         *)
             echo "$1 not supported"
-            exit 1
+            exit_error
             ;;
     esac
 
