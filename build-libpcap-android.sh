@@ -25,7 +25,7 @@ libpcap_dir=libpcap-${libpcap_ver}
 
 if [ ${NDK} ]
 then
-	ndk_dir=${NDK}
+    ndk_dir=${NDK}
 else
 	ndk_dir=${ndk_dir_def}
 fi
