@@ -16,12 +16,13 @@
 # default, edit versions
 libpcap_ver=1.7.4
 android_api_def=21
-ndk_dir_def=android-ndk-r10e
+ndk_dir_def=/home/xiaoming/Android/android-ndk-r12b
 
 #-------------------------------------------------------#
 
 libpcap_dir=libpcap-${libpcap_ver}
 
+platform=""
 
 if [ ${NDK} ]
 then
@@ -75,7 +76,9 @@ exit_error()
     echo "| CREATING TOOLCHAIN |"
     echo "|____________________|"
 
-    case "$1" in
+    platform=$1
+
+    case "${platform}" in
         'armeabi')
             toolchain=arm-linux-androideabi-4.9
             export CC=arm-linux-androideabi-gcc
@@ -149,6 +152,8 @@ exit_error()
     fi
 }
 
+mkdir /home/xiaoming/libpcap-android/${platform}
+
 # build libpcap
 {
     cd ${libpcap_dir}
@@ -159,7 +164,7 @@ exit_error()
     echo "|_____________________|"
 
     chmod +x configure
-    ./configure --host=arm-linux --with-pcap=linux
+    ./configure --host=arm-linux --with-pcap=linux --prefix=/home/xiaoming/libpcap-android/${platform}
 
     if [ $? -ne 0 ]
     then
@@ -172,7 +177,7 @@ exit_error()
     echo "|__________________|"
 
     chmod +x runlex.sh
-    make
+    make install
 
     if [ $? -ne 0 ]
     then
